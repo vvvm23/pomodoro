@@ -17,4 +17,6 @@ When a stage is complete, press enter to continue when ready.
   -n N        Number of cycles to do.
   --wc WC     Color of the progress bar in work mode.
   --rc RC     Color of the progress bar in rest mode.
+  --auto      Auto continue on stage end.
+
 ```
