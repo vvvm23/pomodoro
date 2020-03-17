@@ -4,6 +4,7 @@ import os
 from collections import defaultdict
 from tqdm import tqdm
 
+# Multi OS clear
 def _clear():
     try:
         os.system("clear")
@@ -11,6 +12,7 @@ def _clear():
         os.system("cls")
 
 def main(work_time, rest_time, n, work_color, rest_color):
+    # Define Colors
     colors = defaultdict(lambda: "\033[0;0m")
     colors['gray'] = "\033[1;30m"
     colors['red'] =  "\033[1:31m"
@@ -26,6 +28,7 @@ def main(work_time, rest_time, n, work_color, rest_color):
         for i in range(999999 if n == None else n):
             _clear()
             print(f"Pomodoro Cycle {i+1}" + ("" if n == None else f"/{n}"))
+            # Work stage
             print(colors[work_color])
             with tqdm(total=work_time, desc='Working time', dynamic_ncols=True,
                       bar_format='{desc} {percentage:3.0f}% |{bar}| Remaining Time: {remaining}    ') as pbar:
@@ -33,18 +36,23 @@ def main(work_time, rest_time, n, work_color, rest_color):
                     time.sleep(1)
                     pbar.update(1)
 
+            # Wait for prompt
             input(colors['reset'] + "Press ENTER to continue to resting..")
             if n != None and i==n-1:
                 break
 
+            # Rest Stage
             print(colors[rest_color])
             with tqdm(total=rest_time, desc='Resting time', dynamic_ncols=True,
-                      bar_format='{desc} {percentage:3.0f}% |{bar}| Remaining Time: {remaining}') as pbar:
+                      bar_format='{desc} {percentage:3.0f}% |{bar}| Remaining Time: {remaining}    ') as pbar:
                 for t in range(rest_time):
                     time.sleep(1)
                     pbar.update(1)
+
+            # Wait for prompt
             input(colors['reset'] + "Press ENTER to continue working..")
     except KeyboardInterrupt as e:
+        # Exit nicely on keyboard interrupts
         print(colors['reset'])
         print("Thanks for studying with me!")
         exit()
