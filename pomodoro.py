@@ -12,10 +12,13 @@ def _clear():
 
 def main(work_time, rest_time, n, work_color, rest_color):
     colors = defaultdict(lambda: "\033[0;0m")
+    colors['gray'] = "\033[1;30m"
     colors['red'] =  "\033[1:31m"
+    colors['green'] = "\033[1;32m"
+    colors['yellow'] = "\033[1;33m"
     colors['blue'] = "\033[1;34m"
     colors['cyan'] = "\033[1;36m"
-    colors['green'] = "\033[0;32m"
+    colors['white'] = "\033[1;37m"
     colors['reset'] = "\033[0;0m"
 
     # TODO: actual infinite time <16-03-20, vvvm23> #
