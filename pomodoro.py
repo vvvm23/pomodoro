@@ -11,7 +11,7 @@ def _clear():
     except:
         os.system("cls")
 
-def main(work_time, rest_time, n, work_color, rest_color):
+def main(work_time, rest_time, n, work_color, rest_color, auto_continue):
     # Define Colors
     colors = defaultdict(lambda: "\033[0;0m")
     colors['gray'] = "\033[1;30m"
@@ -37,7 +37,8 @@ def main(work_time, rest_time, n, work_color, rest_color):
                     pbar.update(1)
 
             # Wait for prompt
-            input(colors['reset'] + "Press ENTER to continue to resting..")
+            if not auto_continue:
+                input(colors['reset'] + "Press ENTER to continue to resting..")
             if n != None and i==n-1:
                 break
 
@@ -50,7 +51,8 @@ def main(work_time, rest_time, n, work_color, rest_color):
                     pbar.update(1)
 
             # Wait for prompt
-            input(colors['reset'] + "Press ENTER to continue working..")
+            if not auto_continue:
+                input(colors['reset'] + "Press ENTER to continue working..")
     except KeyboardInterrupt as e:
         # Exit nicely on keyboard interrupts
         print(colors['reset'])
@@ -69,6 +71,7 @@ if __name__ == '__main__':
     parser.add_argument("-n", help="Number of cycles to do.", default=None)
     parser.add_argument("--wc", help="Color of the progress bar in work mode.", default='red')
     parser.add_argument("--rc", help="Color of the progress bar in rest mode.", default='green')
+    parser.add_argument("--auto", help="Auto continue on stage end.", action="store_true")
 
     args = parser.parse_args()
-    main(int(args.wt)*60, int(args.rt)*60, None if args.n == None else int(args.n), args.wc, args.rc)
+    main(int(args.wt)*60, int(args.rt)*60, None if args.n == None else int(args.n), args.wc, args.rc, args.auto)
