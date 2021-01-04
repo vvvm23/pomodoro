@@ -30,7 +30,7 @@ def main(work_time, rest_time, n, work_color, rest_color, auto_continue):
             print(f"Pomodoro Cycle {i+1}" + ("" if n == None else f"/{n}"))
             # Work stage
             print(colors[work_color])
-            with tqdm(total=work_time, desc='Working time', dynamic_ncols=True,
+            with tqdm(total=work_time, desc='Working time', dynamic_ncols=True, leave=False,
                       bar_format='{desc} {percentage:3.0f}% |{bar}| Remaining Time: {remaining}    ') as pbar:
                 for t in range(work_time):
                     time.sleep(1)
@@ -44,7 +44,7 @@ def main(work_time, rest_time, n, work_color, rest_color, auto_continue):
 
             # Rest Stage
             print(colors[rest_color])
-            with tqdm(total=rest_time, desc='Resting time', dynamic_ncols=True,
+            with tqdm(total=rest_time, desc='Resting time', dynamic_ncols=True, leave=False,
                       bar_format='{desc} {percentage:3.0f}% |{bar}| Remaining Time: {remaining}    ') as pbar:
                 for t in range(rest_time):
                     time.sleep(1)
